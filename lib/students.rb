@@ -1,16 +1,29 @@
-## Code your solution below. Note that your SQL queries should be in quotation marks. 
+require "spec_helper"
 
-def highest_student_gpa
+
+describe "aggregate functions sql" do
+  before do
+    @db = SQLite3::Database.new(':memory:')
+    SQLRunner.make_methods
+    @sql_runner = SQLRunner.new(@db)
+    @sql_runner.execute_sql_create
+    @sql_runner.execute_sql_insert
+  end
+
+
+def highest_students_gpa
+  "SELECT MAX(gpa) FROM students";
 end
 
-def lowest_student_gpa
+
+def lowest_students_gpa 
+  "SELECT MIN(students.gpa) FROM students";
 end
 
-def average_student_gpa
+def average_students_gpa
+  "SELECT AVG(student_gpa) FROM students"
 end
 
-def total_tardies_for_all_students
-end
-
-def average_gpa_for_9th_grade
-end
+def all_tardies_for_all_students
+  "SELECT SUM(tardies) FROM students"
+end 
